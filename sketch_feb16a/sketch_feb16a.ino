@@ -53,6 +53,7 @@ void met(){
     DurataRossoGiallo();
     DurataBiancoVerde();
   }
+  reset();
   setup();
 }
 
