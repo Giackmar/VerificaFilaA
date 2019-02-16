@@ -39,6 +39,10 @@ void tempo(){
        Serial.print ("le durate dei led cambieranno fra ");
        Serial.print (cicli);
        Serial.println (" cicli");
+       if (cicli <= 0) {
+        reset();
+        tempo();
+       }
 }
 
 
@@ -72,6 +76,13 @@ void randomi(){
   digitalWrite(verde,HIGH);
   digitalWrite(bianco,HIGH);
   delay(var2);
+  }
+
+  void reset(){
+  digitalWrite(rosso,LOW);
+  digitalWrite(giallo,LOW);
+  digitalWrite(verde,LOW);
+  digitalWrite(bianco,LOW);
   }
 
   
