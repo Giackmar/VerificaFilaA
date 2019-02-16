@@ -4,58 +4,66 @@ int bianco = 8;
 int giallo = 6;
 int rossoGiallo = 0;
 int biancoVerde = 0;
+int cicli = 0;
+int var1 = 0;
+int var2 = 0;
 
 void setup() {
+   cicli = 0;
+   var1 = 0;
+   var2 = 0;
   Serial.begin(9600);
   pinMode(rosso,OUTPUT);
   pinMode(verde,OUTPUT);
   pinMode(bianco,OUTPUT);
   pinMode(giallo,OUTPUT);
 
- if ( rossoGiallo == 0)
+ if ( cicli == 0)
     {
-     Richiesta1();
-    }
-
- if ( biancoVerde == 0)
-    {
-      Richiesta2();
+     tempo();
     }
 }
 
 
 void loop() { 
-  DurataRossoGiallo();
-  DurataBiancoVerde();
+  randomi();
+  met();
 }
 
 
 
-void Richiesta1(){
-       Serial.println ("inserisci la durata dei colori rosso e giallo");
+void tempo(){
+       Serial.println ("fra quanti cicli vuoi che cambino le durate dei led?");
        while(Serial.available() == 0) {};
-       rossoGiallo = Serial.readString().toInt();
-       Serial.print ("il rosso e il giallo dureranno ");
-       Serial.print (rossoGiallo);
-       Serial.println (" millisecondi");
+       cicli = Serial.readString().toInt();
+       Serial.print ("le durate dei led cambieranno fra ");
+       Serial.print (cicli);
+       Serial.println (" cicli");
 }
 
 
-void Richiesta2(){
-       Serial.println ("inserisci la durata dei colori bianco e verde");
-       while(Serial.available() == 0) {};
-       biancoVerde = Serial.readString().toInt();
-       Serial.print ("il bianco e il verde dureranno ");
-       Serial.print (biancoVerde);
-       Serial.println (" millisecondi");
+void met(){
+  int i =0;
+  while (i < cicli){
+    i++;
+    DurataRossoGiallo();
+    DurataBiancoVerde();
+  }
+  setup();
 }
+
+void randomi(){
+  var1 = random(0,5000);
+  var2 = random(0,5000);
+}
+
 
  void DurataRossoGiallo(){
   digitalWrite(rosso,HIGH);
   digitalWrite(giallo,HIGH);
   digitalWrite(verde,LOW);
   digitalWrite(bianco,LOW);
-  delay(rossoGiallo);
+  delay(var1);
   }
 
  void DurataBiancoVerde(){
@@ -63,5 +71,7 @@ void Richiesta2(){
   digitalWrite(giallo,LOW);
   digitalWrite(verde,HIGH);
   digitalWrite(bianco,HIGH);
-  delay(biancoVerde);
+  delay(var2);
   }
+
+  
